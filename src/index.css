@@ -1,0 +1,97 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+/* StudyBuddy Custom Styles */
+.gradient-primary {
+  background: linear-gradient(135deg, #4F9DFF 0%, #A367FF 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #4F9DFF 0%, #A367FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.floating-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+.floating-animation-delayed {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.bounce-animation {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.glow-effect {
+  box-shadow: 0 0 20px rgba(79, 157, 255, 0.3);
+}
+
+.glow-effect:hover {
+  box-shadow: 0 0 30px rgba(79, 157, 255, 0.5);
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(79, 157, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(163, 103, 255, 0.6);
+  }
+}
+
+.wave-bg {
+  background: linear-gradient(135deg, #f0f8ff 0%, #f5f3ff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.wave-bg::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234F9DFF' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+  animation: wave 20s linear infinite;
+}
+
+@keyframes wave {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-60px, -60px) rotate(360deg); }
+}
