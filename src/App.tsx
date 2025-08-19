@@ -1,15 +1,19 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 import { useThemeStore } from './stores/themeStore';
 import Landing from './pages/Landing';
 import ChatInterface from './components/Chat/ChatInterface';
 import DashboardLayout from './components/Dashboard/DashboardLayout';
+import SignInPage from './components/Auth/SignInPage';
+import SignUpPage from './components/Auth/SignUpPage';
+import AITutor from './components/AITutor/AITutor';
+import SmartFlashcards from './components/Flashcards/SmartFlashcards';
 import StudyPlanner from './components/Planner/StudyPlanner';
+import PlannerAnalytics from './components/Planner/PlannerAnalytics';
 
 // Temporary page components
 const Upload = () => <div className="p-6"><h1 className="text-2xl font-bold text-gray-900 dark:text-white">Upload Files</h1></div>;
-const Chat = () => <div className="p-6"><h1 className="text-2xl font-bold text-gray-900 dark:text-white">AI Chat</h1></div>;
-const Flashcards = () => <div className="p-6"><h1 className="text-2xl font-bold text-gray-900 dark:text-white">Flashcards</h1></div>;
 const Profile = () => <div className="p-6"><h1 className="text-2xl font-bold text-gray-900 dark:text-white">Profile</h1></div>;
 
 function App() {
@@ -28,30 +32,62 @@ function App() {
       <Routes>
         {/* Landing Page */}
         <Route path="/" element={<Landing />} />
+
+        {/* Auth */}
+        <Route path="/sign-in" element={<SignInPage />} />
+        <Route path="/sign-up" element={<SignUpPage />} />
         
         {/* Chatbot Interface */}
-        <Route path="/chat" element={<ChatInterface />} />
+        <Route path="/chat" element={
+          <Protected>
+            <ChatInterface />
+          </Protected>
+        } />
+
+        {/* AI Tutor */}
+        <Route path="/ai-tutor" element={
+          <Protected>
+            <DashboardLayout>
+              <AITutor />
+            </DashboardLayout>
+          </Protected>
+        } />
         
         {/* Dashboard Routes */}
         <Route path="/upload" element={
-          <DashboardLayout>
-            <Upload />
-          </DashboardLayout>
+          <Protected>
+            <DashboardLayout>
+              <Upload />
+            </DashboardLayout>
+          </Protected>
         } />
         <Route path="/flashcards" element={
-          <DashboardLayout>
-            <Flashcards />
-          </DashboardLayout>
+          <Protected>
+            <DashboardLayout>
+              <SmartFlashcards />
+            </DashboardLayout>
+          </Protected>
         } />
         <Route path="/planner" element={
-          <DashboardLayout>
-            <StudyPlanner />
-          </DashboardLayout>
+          <Protected>
+            <DashboardLayout>
+              <StudyPlanner />
+            </DashboardLayout>
+          </Protected>
+        } />
+        <Route path="/analytics" element={
+          <Protected>
+            <DashboardLayout>
+              <PlannerAnalytics />
+            </DashboardLayout>
+          </Protected>
         } />
         <Route path="/profile" element={
-          <DashboardLayout>
-            <Profile />
-          </DashboardLayout>
+          <Protected>
+            <DashboardLayout>
+              <Profile />
+            </DashboardLayout>
+          </Protected>
         } />
       </Routes>
     </Router>
@@ -59,3 +95,14 @@ function App() {
 }
 
 export default App;
+function Protected({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <SignedIn>{children}</SignedIn>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
+    </>
+  );
+}
+

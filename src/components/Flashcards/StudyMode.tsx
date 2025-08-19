@@ -24,22 +24,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ deck, onComplete }) => {
     reviewCard
   } = useFlashcardsStore();
   
-  // Add missing function
-  const handleSkip = () => {
-    setSessionStats(prev => ({ ...prev, skipped: prev.skipped + 1 }));
-    nextCard();
-  };
-  
-  const nextCard = () => {
-    if (currentCardIndex < cards.length - 1) {
-      setCurrentCardIndex(prev => prev + 1);
-      setShowAnswer(false);
-      setCardStartTime(new Date());
-    } else {
-      endStudySession();
-      onComplete();
-    }
-  };
+  // nextCard is unused; navigation is handled by moveToNextCard
   const [cards, setCards] = useState<Flashcard[]>([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);

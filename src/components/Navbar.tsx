@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 import { Menu, X, GraduationCap, Timer, Play, Pause, RotateCcw } from 'lucide-react';
 
 const Navbar: React.FC = () => {
@@ -87,21 +88,30 @@ const Navbar: React.FC = () => {
             <Link to="/" className="text-gray-700 hover:text-blue-600 transition-colors">
               Home
             </Link>
-            <Link to="/chat" className="text-gray-700 hover:text-blue-600 transition-colors">
-              AI Chat
-            </Link>
-            <Link to="/flashcards" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <a href="/#ai-tutor" className="text-gray-700 hover:text-blue-600 transition-colors">AI Tutor</a>
+            <Link to="/chat" className="text-gray-700 hover:text-blue-600 transition-colors">AI Chat</Link>
+            <a href="/#flashcards" className="text-gray-700 hover:text-blue-600 transition-colors">
               Flashcards
-            </Link>
-            <Link to="/planner" className="text-gray-700 hover:text-blue-600 transition-colors">
+            </a>
+            <a href="/#planner" className="text-gray-700 hover:text-blue-600 transition-colors">
               Study Planner
-            </Link>
-            <Link to="/analytics" className="text-gray-700 hover:text-blue-600 transition-colors">
+            </a>
+            <a href="/#analytics" className="text-gray-700 hover:text-blue-600 transition-colors">
               Analytics
-            </Link>
-            <Link to="/timer" className="text-gray-700 hover:text-blue-600 transition-colors">
-              Focus Timer
-            </Link>
+            </a>
+            <a href="/#upload" className="text-gray-700 hover:text-blue-600 transition-colors">
+              Upload
+            </a>
+
+            <div className="ml-4 flex items-center space-x-3">
+              <SignedOut>
+                <Link to="/sign-in" className="text-gray-700 hover:text-blue-600 transition-colors">Sign In</Link>
+                <Link to="/sign-up" className="px-3 py-1 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors">Sign Up</Link>
+              </SignedOut>
+              <SignedIn>
+                <UserButton appearance={{ elements: { avatarBox: 'w-8 h-8' } }} />
+              </SignedIn>
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -146,21 +156,28 @@ const Navbar: React.FC = () => {
             <Link to="/" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">
               Home
             </Link>
-            <Link to="/chat" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">
-              AI Chat
-            </Link>
-            <Link to="/flashcards" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">
+            <a href="/#ai-tutor" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">AI Tutor</a>
+            <Link to="/chat" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">AI Chat</Link>
+            <a href="/#flashcards" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">
               Flashcards
-            </Link>
-            <Link to="/planner" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">
+            </a>
+            <a href="/#planner" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">
               Study Planner
-            </Link>
-            <Link to="/analytics" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">
+            </a>
+            <a href="/#analytics" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">
               Analytics
-            </Link>
-            <Link to="/timer" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">
-              Focus Timer
-            </Link>
+            </a>
+            <a href="/#upload" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">Upload</a>
+
+            <div className="pt-2 border-t border-gray-200">
+              <SignedOut>
+                <Link to="/sign-in" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">Sign In</Link>
+                <Link to="/sign-up" className="block py-2 text-gray-700 hover:text-blue-600 transition-colors">Sign Up</Link>
+              </SignedOut>
+              <SignedIn>
+                <div className="py-2"><UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} /></div>
+              </SignedIn>
+            </div>
           </div>
         )}
       </div>

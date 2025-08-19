@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Plus, 
-  Play, 
   BarChart3, 
-  Settings, 
   BookOpen, 
   Brain,
   Target,
@@ -27,7 +25,7 @@ const SmartFlashcards: React.FC = () => {
   const [showCreateDeck, setShowCreateDeck] = useState(false);
 
   const selectedDeck = decks.find(deck => deck.id === selectedDeckId);
-  const deckStats = selectedDeckId ? getDeckStats(selectedDeckId) : null;
+  // const deckStats = selectedDeckId ? getDeckStats(selectedDeckId) : null;
 
   const handleStartStudy = (deckId: string) => {
     selectDeck(deckId);

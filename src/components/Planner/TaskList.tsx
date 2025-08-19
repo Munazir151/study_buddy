@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Filter, 
   Search, 
   Play, 
   CheckCircle2, 
@@ -9,8 +8,7 @@ import {
   Calendar,
   MoreVertical,
   Edit,
-  Trash2,
-  Flag
+  Trash2
 } from 'lucide-react';
 import { usePlannerStore } from '../../stores/plannerStore';
 import Button from '../UI/Button';
@@ -30,8 +28,7 @@ const TaskList: React.FC<TaskListProps> = ({
     tasks, 
     subjects, 
     toggleTask, 
-    deleteTask, 
-    updateTask 
+    deleteTask 
   } = usePlannerStore();
   
   const [searchQuery, setSearchQuery] = useState('');

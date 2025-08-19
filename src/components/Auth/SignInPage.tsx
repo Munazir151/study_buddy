@@ -136,7 +136,7 @@ const SignInPage: React.FC = () => {
                   headerSubtitle: "hidden",
                 }
               }}
-              redirectUrl="/dashboard"
+              redirectUrl="/"
             />
             
             <div className="mt-6 text-center">

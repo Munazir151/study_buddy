@@ -4,8 +4,6 @@ import {
   BarChart3, 
   TrendingUp, 
   Clock, 
-  Target, 
-  Calendar,
   Award,
   BookOpen,
   Zap

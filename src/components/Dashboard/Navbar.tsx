@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, Search, Bell, Brain, BookOpen, Calendar, BarChart3, Timer, Upload, ChevronDown } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/clerk-react';
 import Button from '../UI/Button';
 
 interface NavbarProps {
@@ -11,6 +12,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onMenuToggle }) => {
   const navigate = useNavigate();
   const [showQuickAccess, setShowQuickAccess] = useState(false);
+  const { user } = useUser();
 
   const studyFeatures = [
     {
@@ -175,24 +177,28 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuToggle }) => {
             <span className="absolute top-1 right-1 w-3 h-3 bg-red-500 rounded-full"></span>
           </motion.button>
 
-          {/* Profile */}
-          <div className="flex items-center space-x-3">
-            <div className="hidden sm:block text-right">
-              <p className="text-sm font-medium text-gray-900 dark:text-white">
-                Student
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                Welcome back!
-              </p>
+          {/* Profile / Auth */}
+          <SignedIn>
+            <div className="flex items-center space-x-3">
+              <div className="hidden sm:block text-right">
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  {user?.firstName || 'Student'}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Welcome back!
+                </p>
+              </div>
+              <UserButton appearance={{ elements: { avatarBox: 'w-8 h-8' } }} />
             </div>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-8 h-8 bg-gradient-to-br from-primary-500 to-purple-500 rounded-full flex items-center justify-center text-white font-medium text-sm shadow-lg"
+          </SignedIn>
+          <SignedOut>
+            <Link
+              to="/sign-in"
+              className="px-3 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg"
             >
-              S
-            </motion.button>
-          </div>
+              Sign In
+            </Link>
+          </SignedOut>
         </div>
       </div>
     </motion.header>

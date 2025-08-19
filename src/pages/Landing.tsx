@@ -2,9 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import AnimatedBackground from '../components/UI/AnimatedBackground';
+import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
+import { Menu, X } from 'lucide-react';
+import AITutor from '../components/AITutor/AITutor';
+import SmartFlashcards from '../components/Flashcards/SmartFlashcards';
+import StudyPlanner from '../components/Planner/StudyPlanner';
+import UploadWidget from '../components/Upload/UploadWidget';
+ 
 
 const Landing: React.FC = () => {
   const [counters, setCounters] = useState({ students: 0, hours: 0, success: 0 });
+  const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false);
 
   // Animated counter effect
   useEffect(() => {
@@ -34,7 +42,7 @@ const Landing: React.FC = () => {
       
       {/* Navigation */}
       <nav className="relative z-20 p-6">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="max-w-screen-2xl mx-auto flex justify-between items-center flex-wrap gap-3">
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -45,32 +53,75 @@ const Landing: React.FC = () => {
             </div>
             <span className="text-2xl font-bold gradient-text">StudyBuddy</span>
           </motion.div>
+          {/* Middle nav - feature links and auth (Signed out) */}
+          <div className="hidden md:flex items-center flex-wrap justify-center gap-3 md:gap-6 max-w-[60%] text-sm md:text-base">
+            <a href="#ai-tutor" className="text-gray-700 hover:text-blue-600 transition-colors">AI Tutor</a>
+            <a href="#flashcards" className="text-gray-700 hover:text-blue-600 transition-colors">Flashcards</a>
+            <a href="#planner" className="text-gray-700 hover:text-blue-600 transition-colors">Study Planner</a>
+            <a href="#analytics" className="text-gray-700 hover:text-blue-600 transition-colors">Analytics</a>
+            <a href="#upload" className="text-gray-700 hover:text-blue-600 transition-colors">Upload</a>
+            <SignedOut>
+              <Link 
+                to="/sign-in" 
+                className="ml-2 md:ml-4 bg-white text-gray-700 px-3 py-2 md:px-4 md:py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300 border border-gray-200"
+              >
+                Sign In
+              </Link>
+              <Link 
+                to="/sign-up" 
+                className="gradient-primary text-white px-3 py-2 md:px-4 md:py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
+              >
+                Sign Up
+              </Link>
+            </SignedOut>
+          </div>
           
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="flex space-x-4"
+            className="flex items-center space-x-4"
           >
-            <Link 
-              to="/sign-in" 
-              className="bg-white text-gray-700 px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300 border border-gray-200"
+            {/* Mobile menu button */}
+            <button
+              type="button"
+              className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 hover:bg-gray-100 text-gray-700"
+              onClick={() => setMobileNavOpen(!mobileNavOpen)}
+              aria-label="Toggle menu"
             >
-              Sign In
-            </Link>
-            <Link 
-              to="/sign-up" 
-              className="gradient-primary text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
-            >
-              Sign Up
-            </Link>
+              {mobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+            <SignedIn>
+              <UserButton appearance={{ elements: { avatarBox: 'w-8 h-8' } }} />
+            </SignedIn>
           </motion.div>
         </div>
+
+        {/* Mobile dropdown menu */}
+        {mobileNavOpen && (
+          <div className="md:hidden mt-3">
+            <div className="max-w-7xl mx-auto px-2">
+              <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 space-y-2">
+                <a href="#ai-tutor" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">AI Tutor</a>
+                <a href="#flashcards" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">Flashcards</a>
+                <a href="#planner" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">Study Planner</a>
+                <a href="#analytics" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">Analytics</a>
+                <a href="#upload" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">Upload</a>
+                <SignedOut>
+                  <div className="pt-2 mt-2 border-t border-gray-200 flex items-center gap-3">
+                    <Link to="/sign-in" onClick={() => setMobileNavOpen(false)} className="flex-1 text-center bg-white text-gray-700 px-4 py-2 rounded-full font-semibold border border-gray-200">Sign In</Link>
+                    <Link to="/sign-up" onClick={() => setMobileNavOpen(false)} className="flex-1 text-center gradient-primary text-white px-4 py-2 rounded-full font-semibold">Sign Up</Link>
+                  </div>
+                </SignedOut>
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
       <section className="relative z-10 px-6 py-20">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-screen-2xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               variants={staggerContainer}
@@ -100,7 +151,7 @@ const Landing: React.FC = () => {
                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               >
                 <Link 
-                  to="/sign-up" 
+                  to="/chat" 
                   className="gradient-primary text-white px-8 py-4 rounded-full font-semibold text-lg pulse-glow hover:scale-105 transition-all duration-300"
                 >
                   🚀 Start Learning Free
@@ -153,7 +204,7 @@ const Landing: React.FC = () => {
                 </motion.div>
                 
                 {/* Central device mockup */}
-                <div className="bg-white rounded-3xl p-8 shadow-2xl mx-8">
+                <div className="bg-white rounded-3xl p-8 shadow-2xl mx-0 lg:mx-8">
                   <div className="aspect-video bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl flex items-center justify-center text-6xl">
                     👨‍💻
                   </div>
@@ -174,7 +225,7 @@ const Landing: React.FC = () => {
 
       {/* How It Works Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-screen-2xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -221,7 +272,7 @@ const Landing: React.FC = () => {
 
       {/* Features Grid */}
       <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-screen-2xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -266,7 +317,7 @@ const Landing: React.FC = () => {
 
       {/* Demo Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-screen-2xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -348,6 +399,68 @@ const Landing: React.FC = () => {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Live Feature Playground (Signed in) */}
+      <section className="py-20 bg-white">
+        <div className="max-w-screen-2xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold mb-4">
+              Try Features <span className="gradient-text">Right Here</span>
+            </h2>
+            <p className="text-lg text-gray-600">Sign in to use the full experiences directly on this page.</p>
+          </motion.div>
+
+          <SignedOut>
+            <div className="text-center">
+              <Link 
+                to="/sign-in" 
+                className="gradient-primary text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
+              >
+                Sign in to explore features
+              </Link>
+            </div>
+          </SignedOut>
+
+          <SignedIn>
+            <div id="ai-tutor" className="mb-16">
+              <h3 className="text-2xl font-bold mb-4">AI Tutor</h3>
+              <div className="rounded-2xl border border-gray-200 overflow-hidden">
+                <div style={{ height: 600 }}>
+                  <AITutor />
+                </div>
+              </div>
+            </div>
+
+            <div id="flashcards" className="mb-16">
+              <h3 className="text-2xl font-bold mb-4">Smart Flashcards</h3>
+              <div className="rounded-2xl border border-gray-200 overflow-hidden">
+                <div style={{ height: 600 }}>
+                  <SmartFlashcards />
+                </div>
+              </div>
+            </div>
+
+            <div id="planner" className="mb-16">
+              <h3 className="text-2xl font-bold mb-4">Study Planner</h3>
+              <div className="rounded-2xl border border-gray-200 overflow-hidden">
+                <div style={{ height: 600 }}>
+                  <StudyPlanner />
+                </div>
+              </div>
+            </div>
+
+            <div id="upload" className="mb-16">
+              <h3 className="text-2xl font-bold mb-4">Upload</h3>
+              <UploadWidget />
+            </div>
+          </SignedIn>
         </div>
       </section>
 
@@ -447,7 +560,7 @@ const Landing: React.FC = () => {
 
       {/* Final CTA */}
       <section className="py-20 gradient-primary">
-        <div className="max-w-4xl mx-auto px-6 text-center text-white">
+        <div className="max-w-screen-lg mx-auto px-6 text-center text-white">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -482,7 +595,7 @@ const Landing: React.FC = () => {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-screen-2xl mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-3 mb-6">

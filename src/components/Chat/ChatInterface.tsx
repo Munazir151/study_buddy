@@ -33,22 +33,9 @@ const ChatInterface: React.FC = () => {
 
   const openChatbaseWidget = () => {
     if (window.chatbase) {
-      if (window.chatbase) {
-        if (window.chatbase) {
-          window.chatbase('open');
-        }
-      }
+      window.chatbase('open');
     } else {
       alert('Chatbase widget is still loading. Please try again in a moment.');
-    }
-  };
-
-  const refreshWidget = () => {
-    if (window.chatbase) {
-      window.chatbase('close');
-      setTimeout(() => {
-        window.chatbase('open');
-      }, 500);
     }
   };
 

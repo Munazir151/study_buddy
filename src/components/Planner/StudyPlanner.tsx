@@ -6,9 +6,7 @@ import {
   Target, 
   Clock, 
   TrendingUp,
-  Filter,
   BarChart3,
-  Play,
   CheckCircle
 } from 'lucide-react';
 import { usePlannerStore } from '../../stores/plannerStore';
@@ -25,7 +23,6 @@ const StudyPlanner: React.FC = () => {
   const { 
     tasks, 
     goals, 
-    selectedDate, 
     currentSession,
     getTasksForDate,
     getProductivityStats,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { X, Calendar, Clock, Flag, BookOpen, Target } from 'lucide-react';
+import { X, Target } from 'lucide-react';
 import { usePlannerStore } from '../../stores/plannerStore';
 import Button from '../UI/Button';
 

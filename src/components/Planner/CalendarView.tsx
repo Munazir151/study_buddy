@@ -6,8 +6,7 @@ import {
   Plus, 
   Clock, 
   AlertCircle,
-  Play,
-  CheckCircle2
+  Play
 } from 'lucide-react';
 import { usePlannerStore } from '../../stores/plannerStore';
 import Button from '../UI/Button';
@@ -169,7 +168,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ onStartSession }) => {
                   
                   {/* Task indicators */}
                   <div className="mt-1 space-y-1">
-                    {dayTasks.slice(0, 2).map((task, index) => (
+                    {dayTasks.slice(0, 2).map((task) => (
                       <div
                         key={task.id}
                         className={`text-xs px-1 py-0.5 rounded truncate ${
