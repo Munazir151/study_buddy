@@ -7,7 +7,6 @@ import { Menu, X } from 'lucide-react';
 import AITutor from '../components/AITutor/AITutor';
 import SmartFlashcards from '../components/Flashcards/SmartFlashcards';
 import StudyPlanner from '../components/Planner/StudyPlanner';
-import UploadWidget from '../components/Upload/UploadWidget';
  
 
 const Landing: React.FC = () => {
@@ -456,10 +455,7 @@ const Landing: React.FC = () => {
               </div>
             </div>
 
-            <div id="upload" className="mb-16">
-              <h3 className="text-2xl font-bold mb-4">Upload</h3>
-              <UploadWidget />
-            </div>
+          
           </SignedIn>
         </div>
       </section>
