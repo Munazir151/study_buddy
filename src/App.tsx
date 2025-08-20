@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 import { useThemeStore } from './stores/themeStore';
 import Landing from './pages/Landing';
@@ -7,13 +7,14 @@ import ChatInterface from './components/Chat/ChatInterface';
 import DashboardLayout from './components/Dashboard/DashboardLayout';
 import SignInPage from './components/Auth/SignInPage';
 import SignUpPage from './components/Auth/SignUpPage';
-import AITutor from './components/AITutor/AITutor';
-import SmartFlashcards from './components/Flashcards/SmartFlashcards';
-import StudyPlanner from './components/Planner/StudyPlanner';
-import PlannerAnalytics from './components/Planner/PlannerAnalytics';
+import AITutor from './pages/AITutor';
+import Flashcards from './pages/Flashcards';
+import StudyPlanner from './pages/StudyPlanner';
+import Analytics from './pages/Analytics';
+import Upload from './pages/Upload';
+
 
 // Temporary page components
-const Upload = () => <div className="p-6"><h1 className="text-2xl font-bold text-gray-900 dark:text-white">Upload Files</h1></div>;
 const Profile = () => <div className="p-6"><h1 className="text-2xl font-bold text-gray-900 dark:text-white">Profile</h1></div>;
 
 function App() {
@@ -44,44 +45,38 @@ function App() {
           </Protected>
         } />
 
-        {/* AI Tutor */}
+        {/* Feature Pages (Protected) */}
         <Route path="/ai-tutor" element={
           <Protected>
-            <DashboardLayout>
-              <AITutor />
-            </DashboardLayout>
-          </Protected>
-        } />
-        
-        {/* Dashboard Routes */}
-        <Route path="/upload" element={
-          <Protected>
-            <DashboardLayout>
-              <Upload />
-            </DashboardLayout>
+            <AITutor />
           </Protected>
         } />
         <Route path="/flashcards" element={
           <Protected>
-            <DashboardLayout>
-              <SmartFlashcards />
-            </DashboardLayout>
+            <Flashcards />
           </Protected>
         } />
         <Route path="/planner" element={
           <Protected>
-            <DashboardLayout>
-              <StudyPlanner />
-            </DashboardLayout>
+            <StudyPlanner />
           </Protected>
         } />
         <Route path="/analytics" element={
           <Protected>
-            <DashboardLayout>
-              <PlannerAnalytics />
-            </DashboardLayout>
+            <Analytics />
           </Protected>
         } />
+        
+        {/* Dashboard Routes */}
+        {/* Backward-compatible alias for old Study Planner URL */}
+        <Route path="/study-planner" element={<Navigate to="/planner" replace />} />
+        <Route path="/upload" element={
+          <Protected>
+            <Upload />
+          </Protected>
+        } />
+        
+        
         <Route path="/profile" element={
           <Protected>
             <DashboardLayout>

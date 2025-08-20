@@ -4,9 +4,7 @@ import { motion } from 'framer-motion';
 import AnimatedBackground from '../components/UI/AnimatedBackground';
 import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 import { Menu, X } from 'lucide-react';
-import AITutor from '../components/AITutor/AITutor';
-import SmartFlashcards from '../components/Flashcards/SmartFlashcards';
-import StudyPlanner from '../components/Planner/StudyPlanner';
+
  
 
 const Landing: React.FC = () => {
@@ -53,12 +51,12 @@ const Landing: React.FC = () => {
             <span className="text-2xl font-bold gradient-text">StudyBuddy</span>
           </motion.div>
           {/* Middle nav - feature links and auth (Signed out) */}
-          <div className="hidden md:flex items-center flex-wrap justify-center gap-3 md:gap-6 max-w-[60%] text-sm md:text-base">
-            <a href="#ai-tutor" className="text-gray-700 hover:text-blue-600 transition-colors">AI Tutor</a>
-            <a href="#flashcards" className="text-gray-700 hover:text-blue-600 transition-colors">Flashcards</a>
-            <a href="#planner" className="text-gray-700 hover:text-blue-600 transition-colors">Study Planner</a>
-            <a href="#analytics" className="text-gray-700 hover:text-blue-600 transition-colors">Analytics</a>
-            <a href="#upload" className="text-gray-700 hover:text-blue-600 transition-colors">Upload</a>
+           <div className="hidden md:flex items-center flex-wrap justify-center gap-3 md:gap-6 max-w-[60%] text-sm md:text-base">
+            <Link to="/ai-tutor" className="text-gray-700 hover:text-blue-600 transition-colors">AI Tutor</Link>
+            <Link to="/flashcards" className="text-gray-700 hover:text-blue-600 transition-colors">Flashcards</Link>
+            <Link to="/planner" className="text-gray-700 hover:text-blue-600 transition-colors">Study Planner</Link>
+            <Link to="/analytics" className="text-gray-700 hover:text-blue-600 transition-colors">Analytics</Link>
+            <Link to="/upload" className="text-gray-700 hover:text-blue-600 transition-colors">Upload</Link>
             <SignedOut>
               <Link 
                 to="/sign-in" 
@@ -98,14 +96,14 @@ const Landing: React.FC = () => {
 
         {/* Mobile dropdown menu */}
         {mobileNavOpen && (
-          <div className="md:hidden mt-3">
+         <div className="md:hidden mt-3">
             <div className="max-w-7xl mx-auto px-2">
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 space-y-2">
-                <a href="#ai-tutor" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">AI Tutor</a>
-                <a href="#flashcards" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">Flashcards</a>
-                <a href="#planner" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">Study Planner</a>
-                <a href="#analytics" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">Analytics</a>
-                <a href="#upload" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">Upload</a>
+                <Link to="/ai-tutor" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">AI Tutor</Link>
+                <Link to="/flashcards" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">Flashcards</Link>
+                <Link to="/planner" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">Study Planner</Link>
+                <Link to="/analytics" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">Analytics</Link>
+                <Link to="/upload" onClick={() => setMobileNavOpen(false)} className="block py-2 text-gray-700 hover:text-blue-600">Upload</Link>
                 <SignedOut>
                   <div className="pt-2 mt-2 border-t border-gray-200 flex items-center gap-3">
                     <Link to="/sign-in" onClick={() => setMobileNavOpen(false)} className="flex-1 text-center bg-white text-gray-700 px-4 py-2 rounded-full font-semibold border border-gray-200">Sign In</Link>
@@ -401,64 +399,7 @@ const Landing: React.FC = () => {
         </div>
       </section>
 
-      {/* Live Feature Playground (Signed in) */}
-      <section className="py-20 bg-white">
-        <div className="max-w-screen-2xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-10"
-          >
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">
-              Try Features <span className="gradient-text">Right Here</span>
-            </h2>
-            <p className="text-lg text-gray-600">Sign in to use the full experiences directly on this page.</p>
-          </motion.div>
-
-          <SignedOut>
-            <div className="text-center">
-              <Link 
-                to="/sign-in" 
-                className="gradient-primary text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
-              >
-                Sign in to explore features
-              </Link>
-            </div>
-          </SignedOut>
-
-          <SignedIn>
-            <div id="ai-tutor" className="mb-16">
-              <h3 className="text-2xl font-bold mb-4">AI Tutor</h3>
-              <div className="rounded-2xl border border-gray-200 overflow-hidden">
-                <div style={{ height: 600 }}>
-                  <AITutor />
-                </div>
-              </div>
-            </div>
-
-            <div id="flashcards" className="mb-16">
-              <h3 className="text-2xl font-bold mb-4">Smart Flashcards</h3>
-              <div className="rounded-2xl border border-gray-200 overflow-hidden">
-                <div style={{ height: 600 }}>
-                  <SmartFlashcards />
-                </div>
-              </div>
-            </div>
-
-            <div id="planner" className="mb-16">
-              <h3 className="text-2xl font-bold mb-4">Study Planner</h3>
-              <div className="rounded-2xl border border-gray-200 overflow-hidden">
-                <div style={{ height: 600 }}>
-                  <StudyPlanner />
-                </div>
-              </div>
-            </div>
-
-          
-          </SignedIn>
-        </div>
-      </section>
+      
 
       {/* Stats Section */}
       <section className="py-20 gradient-primary">
